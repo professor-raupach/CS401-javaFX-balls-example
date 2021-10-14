@@ -14,17 +14,20 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class FieldController implements Initializable {
 
-    private Ball ball;
+
+    private ArrayList<Ball> balls = new ArrayList<>();
 
     private Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-            ball.move(field);
-
+            for (int i = 0; i < balls.size(); i++) {
+                balls.get(i).move(field);
+            }
         }
     }));
 
@@ -33,10 +36,12 @@ public class FieldController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ball = new Ball();
-
-        // Adding to the scene
-        field.getChildren().add(ball);
+        for (int i=0; i < 1125; i++) {
+            Ball ball = new Ball();
+            balls.add(ball);
+            // Adding to the scene
+            field.getChildren().add(ball);
+        }
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
